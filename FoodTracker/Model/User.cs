@@ -7,23 +7,16 @@ using System.Threading.Tasks;
 
 namespace FoodTracker.Model
 {
-   public enum Gender
+    public class User
    {
-      Male = 0,
-      Female = 1,
-      InvalidGender = 2
-   }
-
-   public class User
-   {
-      private CalorieSet userMacros;
-      private int age;
-      private Gender gender;
+      private Macronutrient _userMacros;
+      private int _age;
+      private Gender _gender;
       // inches or centimeters
-      private double height;
+      private double _height;
       // in lbs or kgs
-      private double weight;
-      List<FoodItem> userFoodList;
+      private double _weight;
+      List<FoodItem> _userFoodList;
       public string Name
       {
          get { return "Endurance"; }
@@ -33,22 +26,22 @@ namespace FoodTracker.Model
       // Empty Constructor
       public User()
       {
-         userMacros = new CalorieSet();
-         age = 0;
-         gender = Gender.InvalidGender;
-         height = 0;
-         weight = 0;
-         userFoodList = new List<FoodItem>();
+         _userMacros = new Macronutrient();
+         _age = 0;
+         _gender = Gender.InvalidGender;
+         _height = 0;
+         _weight = 0;
+         _userFoodList = new List<FoodItem>();
       }
       // Test Constructor.
       public User(bool isMe)
       {
-         userMacros = new CalorieSet(fat: 70, carb: 200, protein: 200, salt: 3000);
-         age = 26;
-         gender = Gender.Male;
-         height = 180.34;
-         weight = 200;
-         userFoodList = new List<FoodItem>();
+         _userMacros = new Macronutrient(fatInGrams: 70, carbohydratesInGrams: 200, proteinInGrams: 200, saltInMilligrams: 3000);
+         _age = 26;
+         _gender = Gender.Male;
+         _height = 180.34;
+         _weight = 200;
+         _userFoodList = new List<FoodItem>();
       }
       // Static constructor for testing / usage. My own stats
       public static User EnduranceUser()
@@ -83,46 +76,46 @@ namespace FoodTracker.Model
             food.FoodMacros.Protein = Double.Parse(splitLine[7]);
             food.FoodMacros.Salt = int.Parse(splitLine[8]);
             // Add food to the list.
-            userFoodList.Add(food);
+            _userFoodList.Add(food);
             id++;
          }
       }
 
       #region Properties
-      public CalorieSet Macros
+      public Macronutrient Macros
       {
-         get { return userMacros; }
-         set { userMacros = value; }
+         get { return _userMacros; }
+         set { _userMacros = value; }
       }
 
       public List<FoodItem> Foods
       {
-         get { return userFoodList; }
-         set { userFoodList = value; }
+         get { return _userFoodList; }
+         set { _userFoodList = value; }
       }
 
       public int Age
       {
-         get { return age; }
-         set { age = value; }
+         get { return _age; }
+         set { _age = value; }
       }
 
       public Gender UserGender
       {
-         get { return gender; }
-         set { gender = value; }
+         get { return _gender; }
+         set { _gender = value; }
       }
 
       public double Height
       {
-         get { return height; }
-         set { height = value; }
+         get { return _height; }
+         set { _height = value; }
       }
 
       public double Weight
       {
-         get { return weight; }
-         set { weight = value; }
+         get { return _weight; }
+         set { _weight = value; }
       }
       #endregion
 
