@@ -2,3 +2,5 @@ FoodTracker/bin/
 FoodTrackerUnitTests/obj/
 FoodTracker/obj/
 Test/obj/
+*.suo
+Test/bin/

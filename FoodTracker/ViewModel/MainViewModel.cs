@@ -8,73 +8,67 @@ namespace FoodTracker.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged, IDropTarget
     {
-        private readonly Macronutrient differenceMacros;
-        private readonly User endurance;
+        private readonly Macronutrient _differenceMacros;
         private readonly ObservableCollection<FoodItem> userFoodList;
         private readonly ObservableCollection<FoodItem> windowFoodList;
 
         public MainViewModel()
         {
-            endurance = User.EnduranceUser();
-            endurance.FillFoodList("..\\..\\Data\\endurancefood.csv");
-            userFoodList = new ObservableCollection<FoodItem>(endurance.Foods);
+            CurrentUser = User.EnduranceUser();
+            CurrentUser.FillFoodList("..\\..\\Data\\endurancefood.csv");
+            userFoodList = new ObservableCollection<FoodItem>(CurrentUser.Foods);
             windowFoodList = new ObservableCollection<FoodItem>();
-            differenceMacros = endurance.Macros.Clone() as Macronutrient;
+            _differenceMacros = CurrentUser.Macros.Clone() as Macronutrient;
         }
 
-        public User CurrentUser
-        {
-            get { return endurance; }
-        }
+        public User CurrentUser { get; }
 
         public ObservableCollection<FoodItem> UserFoodList
         {
             get { return userFoodList; }
-            private set { }
         }
 
         public ObservableCollection<FoodItem> WindowFoodList
         {
             get { return windowFoodList; }
-            private set { }
         }
 
         public double FatDifference
         {
-            get { return differenceMacros.Fat; }
+            get { return _differenceMacros.Fat; }
             set
             {
-                differenceMacros.Fat = value;
+                _differenceMacros.Fat = value;
                 OnPropertyChanged("FatDifference");
             }
         }
 
         public double CarbDifference
         {
-            get { return differenceMacros.Carbohydrate; }
+            get { return _differenceMacros.Carbohydrate; }
             set
             {
-                differenceMacros.Carbohydrate = value;
+                _differenceMacros.Carbohydrate = value;
                 OnPropertyChanged("CarbDifference");
             }
         }
 
         public double ProteinDifference
         {
-            get { return differenceMacros.Protein; }
+            get { return _differenceMacros.Protein; }
             set
             {
-                differenceMacros.Protein = value;
+                _differenceMacros.Protein = value;
                 OnPropertyChanged("ProteinDifference");
             }
         }
 
         public int SaltDifference
         {
-            get { return differenceMacros.Salt; }
+            get { return _differenceMacros.Salt; }
             set
             {
-                differenceMacros.Salt = value;
+                _differenceMacros.Salt = value;
                 OnPropertyChanged("SaltDifference");
             }
         }
@@ -93,10 +87,10 @@ namespace FoodTracker.ViewModel
         {
             var sourceItem = dropInfo.Data as FoodItem;
             WindowFoodList.Add(sourceItem);
-            FatDifference = differenceMacros.Fat - sourceItem.FoodMacros.Fat;
-            CarbDifference = differenceMacros.Carbohydrate - sourceItem.FoodMacros.Carbohydrate;
-            ProteinDifference = differenceMacros.Protein - sourceItem.FoodMacros.Protein;
-            SaltDifference = differenceMacros.Salt - sourceItem.FoodMacros.Salt;
+            FatDifference = _differenceMacros.Fat - sourceItem.FoodMacros.Fat;
+            CarbDifference = _differenceMacros.Carbohydrate - sourceItem.FoodMacros.Carbohydrate;
+            ProteinDifference = _differenceMacros.Protein - sourceItem.FoodMacros.Protein;
+            SaltDifference = _differenceMacros.Salt - sourceItem.FoodMacros.Salt;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -104,10 +98,12 @@ namespace FoodTracker.ViewModel
         protected void OnPropertyChanged(string name)
         {
             var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
+            // this code is being replaced with "null-propogation".
+            //if (handler != null)
+            //{
+            //    handler(this, new PropertyChangedEventArgs(name));
+            //}
+            handler?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }
