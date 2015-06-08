@@ -1,7 +1,7 @@
 ﻿using System;
 using MongoDB.Bson;
 using MongoDB.Driver;
-
+using Dapper;
 namespace FoodTracker.Services.Repository
 {
     public class TestClass
@@ -58,5 +58,9 @@ namespace FoodTracker.Services.Repository
                 {"restaurant_id", "41704620"}
             };
         }
+    }
+
+    public class DapperTest
+    { 
     }
 }
