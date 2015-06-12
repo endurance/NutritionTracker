@@ -10,11 +10,12 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
+                <MenuItem Header="Load Food Data" Click="loadFoodData_OnClick"/>
                 <MenuItem Header="Options"/>
                 <MenuItem Header="Exit"/>
              </MenuItem>
             <MenuItem Header="Ingredients">
-                <MenuItem Header="Add Ingredient"></MenuItem>
+                <MenuItem Header="Add Ingredient" Click="createIngredientCreationWindow_OnClick"></MenuItem>
                 <MenuItem Header="Edit Ingredient"></MenuItem>
                 <MenuItem Header="Remove Ingredient"></MenuItem>
             </MenuItem>
