@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FoodTracker.Model
+﻿namespace FoodTracker.Model
 {
     public class FoodItem
     {
@@ -13,7 +11,7 @@ namespace FoodTracker.Model
             FoodMacros = new Macronutrient();
         }
 
-        public override String ToString()
+        public override string ToString()
         {
             return Name + " " + ImperialServing + " " + MetricServing + " " + FoodMacros;
         }
@@ -31,5 +29,7 @@ namespace FoodTracker.Model
         public Macronutrient FoodMacros { get; set; }
 
         #endregion
+
+
     }
 }

@@ -1,37 +1,43 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using FoodTracker.Model;
+using FoodTracker.Services.Repository;
 using GongSolutions.Wpf.DragDrop;
 
 namespace FoodTracker.ViewModel
 {
-    public class MainViewModel : INotifyPropertyChanged, IDropTarget
+    public class MainViewModel : IViewModel, IDropTarget
     {
         private readonly Macronutrient _differenceMacros;
-        private readonly ObservableCollection<FoodItem> userFoodList;
-        private readonly ObservableCollection<FoodItem> windowFoodList;
-
+        private readonly IFoodRepository _repo = new MongoFoodRepository();
         public MainViewModel()
         {
-            CurrentUser = User.EnduranceUser();
-            CurrentUser.FillFoodList("..\\..\\Data\\endurancefood.csv");
-            userFoodList = new ObservableCollection<FoodItem>(CurrentUser.Foods);
-            windowFoodList = new ObservableCollection<FoodItem>();
-            _differenceMacros = CurrentUser.Macros.Clone() as Macronutrient;
+            CurrentUser = new User()
+            {
+                GoalMacroNutrients = new List<Macronutrient>()
+                {
+                  new Macronutrient(70, 200, 200, 3000)
+                },
+                Age = 26,
+                Gender = Gender.Male,
+                Height = 180.34,
+                Weight = 200,
+                Foods = new List<FoodItem>()
+            };
+            //CurrentUser.FillFoodList("..\\..\\Data\\endurancefood.csv");
+            UserFoodList = new ObservableCollection<FoodItem>(CurrentUser.Foods);
+            MainWindowFoodList = new ObservableCollection<FoodItem>(_repo.GetAllFoodItems());
+            _differenceMacros = CurrentUser.GoalMacroNutrients.First().Clone() as Macronutrient;
         }
 
         public User CurrentUser { get; }
 
-        public ObservableCollection<FoodItem> UserFoodList
-        {
-            get { return userFoodList; }
-        }
+        public ObservableCollection<FoodItem> UserFoodList { get; }
 
-        public ObservableCollection<FoodItem> WindowFoodList
-        {
-            get { return windowFoodList; }
-        }
+        public ObservableCollection<FoodItem> MainWindowFoodList { get; }
 
         public double FatDifference
         {
@@ -86,7 +92,7 @@ namespace FoodTracker.ViewModel
         public void Drop(IDropInfo dropInfo)
         {
             var sourceItem = dropInfo.Data as FoodItem;
-            WindowFoodList.Add(sourceItem);
+            MainWindowFoodList.Add(sourceItem);
             FatDifference = _differenceMacros.Fat - sourceItem.FoodMacros.Fat;
             CarbDifference = _differenceMacros.Carbohydrate - sourceItem.FoodMacros.Carbohydrate;
             ProteinDifference = _differenceMacros.Protein - sourceItem.FoodMacros.Protein;
