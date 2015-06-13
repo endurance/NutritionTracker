@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using FoodTracker.Services.Repository;
+using FoodTracker.View;
 using FoodTracker.ViewModel;
 
 namespace FoodTracker
@@ -24,7 +26,11 @@ namespace FoodTracker
 
         private void createIngredientCreationWindow_OnClick(object sender, RoutedEventArgs e)
         {
+            AddIngredient window = new AddIngredient(new MongoFoodRepository());
+            window.Show();
 
+            this.UpdateLayout();
+            //ViewModel.UpdateView();
         }
         
     }

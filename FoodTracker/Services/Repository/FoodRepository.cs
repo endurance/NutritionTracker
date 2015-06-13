@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq.Expressions;
 using FoodTracker.Model;
 using Dapper;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace FoodTracker.Services.Repository
@@ -31,8 +32,7 @@ namespace FoodTracker.Services.Repository
         {
             mongoClient = new MongoClient(ConfigurationManager.ConnectionStrings["FoodTrackerDb"].ConnectionString);
             mongoDb = mongoClient.GetDatabase("FoodDb");
-
-            collection = mongoDb.GetCollection<FoodItem>("foods");
+            collection = mongoDb.GetCollection<FoodItem>("FoodItems");
         }
         
         public async void AddEntity(FoodItem newEntity)
@@ -52,7 +52,6 @@ namespace FoodTracker.Services.Repository
 
         public IEnumerable<FoodItem> GetAllFoodItems()
         {
-            var collection = mongoDb.GetCollection<FoodItem>("foods");
             return collection.Find(i => true).ToListAsync().Result;
         }
     }

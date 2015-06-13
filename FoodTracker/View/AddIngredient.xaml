@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodTracker.View"
         mc:Ignorable="d"
-        Title="AddIngredient" Height="300" Width="300"
-        DataContext="{Binding _viewModel}">
+        Title="AddIngredient" Height="300" Width="300">
     <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
@@ -20,16 +19,16 @@
                 <Label Height= "25" Content="Protein (g)"/>
                 <Label Height= "25"  Content="Salt (mg)"/>
             </StackPanel>
-            <StackPanel>
-                <TextBox Name="FoodName"        Text="{Binding foodItem.FoodMacros.}" Height="25" Width="100"/>
-                <TextBox Name="fat_TextBox"     Text="{Binding foodItem.FoodMacros.Fat}" Height="25" Width="100"/>
-                <TextBox Name="carb_TextBox"    Text="{Binding foodItem.FoodMacros.Carb}" Height="25" Width="100"/>
-                <TextBox Name="protein_TextBox" Text="{Binding foodItem.FoodMacros.Protein}" Height="25" Width="100"/>
-                <TextBox Name="salt_TextBox"    Text="{Binding foodItem.FoodMacros.Salt}"  Height="25" Width="100"/>
+            <StackPanel Name="boxes_panel">
+                <TextBox Name="FoodName"        Text="{Binding Food.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="100"/>
+                <TextBox Name="fat_TextBox"     Text="{Binding Food.FoodMacros.Fat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="100"/>
+                <TextBox Name="carb_TextBox"    Text="{Binding Food.FoodMacros.Carb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="100"/>
+                <TextBox Name="protein_TextBox" Text="{Binding Food.FoodMacros.Protein, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="100"/>
+                <TextBox Name="salt_TextBox"    Text="{Binding Food.FoodMacros.Salt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Height="25" Width="100"/>
             </StackPanel>
         </StackPanel>
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="1">
-            <Button Width="100" Content="Submit"></Button>
+            <Button Width="100" Content="Submit" Click="UpdateDb_SubmitClick"></Button>
             <Button Width="100" Content="Cancel"></Button>
         </StackPanel>
         

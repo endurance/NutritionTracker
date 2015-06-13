@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
+using FoodTracker.Annotations;
 using FoodTracker.Model;
 using FoodTracker.Services.Repository;
 using GongSolutions.Wpf.DragDrop;
@@ -13,6 +16,7 @@ namespace FoodTracker.ViewModel
     {
         private readonly Macronutrient _differenceMacros;
         private readonly IFoodRepository _repo = new MongoFoodRepository();
+        private readonly ObservableCollection<FoodItem> repoFoodList = new ObservableCollection<FoodItem>();
         public MainViewModel()
         {
             CurrentUser = new User()
@@ -27,15 +31,22 @@ namespace FoodTracker.ViewModel
                 Weight = 200,
                 Foods = new List<FoodItem>()
             };
-            //CurrentUser.FillFoodList("..\\..\\Data\\endurancefood.csv");
-            UserFoodList = new ObservableCollection<FoodItem>(CurrentUser.Foods);
-            MainWindowFoodList = new ObservableCollection<FoodItem>(_repo.GetAllFoodItems());
+            MainWindowFoodList = new ObservableCollection<FoodItem>(CurrentUser.Foods);
+            //UserFoodList = new ObservableCollection<FoodItem>(_repo.GetAllFoodItems());
             _differenceMacros = CurrentUser.GoalMacroNutrients.First().Clone() as Macronutrient;
         }
 
         public User CurrentUser { get; }
 
-        public ObservableCollection<FoodItem> UserFoodList { get; }
+        public ObservableCollection<FoodItem> UserFoodList
+        {
+            get
+            {
+                repoFoodList.Clear();
+                foreach (var i in _repo.GetAllFoodItems()) repoFoodList.Add(i);
+                return repoFoodList;
+            }
+        }
 
         public ObservableCollection<FoodItem> MainWindowFoodList { get; }
 
@@ -82,11 +93,9 @@ namespace FoodTracker.ViewModel
         public void DragOver(IDropInfo dropInfo)
         {
             var sourceItem = dropInfo.Data as FoodItem;
-            if (dropInfo.TargetCollection != null)
-            {
-                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
-                dropInfo.Effects = DragDropEffects.Copy;
-            }
+            if (dropInfo.TargetCollection == null) return;
+            dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+            dropInfo.Effects = DragDropEffects.Copy;
         }
 
         public void Drop(IDropInfo dropInfo)
@@ -99,17 +108,13 @@ namespace FoodTracker.ViewModel
             SaltDifference = _differenceMacros.Salt - sourceItem.FoodMacros.Salt;
         }
 
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string name)
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            var handler = PropertyChanged;
-            // this code is being replaced with "null-propogation".
-            //if (handler != null)
-            //{
-            //    handler(this, new PropertyChangedEventArgs(name));
-            //}
-            handler?.Invoke(this, new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -87,7 +87,7 @@
             </Grid.ColumnDefinitions>
             <ListView 
                 Name="FoodPlanning" 
-                ItemsSource="{Binding WindowFoodList}"
+                ItemsSource="{Binding MainWindowFoodList}"
                 dd:DragDrop.IsDropTarget="True"
                 dd:DragDrop.DropHandler="{Binding}">
                 <ListView.View>
@@ -104,7 +104,7 @@
             <GridSplitter/>
             <StackPanel Grid.Column="1">
                 <ListView Name="userFoodListView" 
-                          ItemsSource="{Binding UserFoodList}"
+                          ItemsSource="{Binding UserFoodList, UpdateSourceTrigger=PropertyChanged}"
                           dd:DragDrop.IsDragSource="True">
                     <ListView.View>
                         <GridView>

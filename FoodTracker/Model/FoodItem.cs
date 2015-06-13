@@ -1,10 +1,12 @@
-﻿namespace FoodTracker.Model
+﻿using System;
+
+namespace FoodTracker.Model
 {
     public class FoodItem
     {
         public FoodItem()
         {
-            Id = -1;
+            Id = Guid.NewGuid();
             Name = "";
             ImperialServing = new ImperialServing();
             MetricServing = new MetricServing();
@@ -18,7 +20,7 @@
 
         #region Properties
 
-        public long Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 

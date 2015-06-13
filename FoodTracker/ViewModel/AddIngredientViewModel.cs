@@ -8,58 +8,125 @@ namespace FoodTracker.ViewModel
 {
     public class AddIngredientViewModel : IViewModel
     {
-        private readonly IFoodRepository _repo = new MongoFoodRepository();
-        private FoodItem foodItem;
+        private readonly IFoodRepository _repo;
+        private FoodItem _food;
+
+        public FoodItem Food
+        {
+            get { return _food; }
+            set
+            {
+                if (Equals(value, _food)) return;
+                _food = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(ImperialServing));
+                OnPropertyChanged(nameof(MetricServing));
+                OnPropertyChanged(nameof(FoodMacros));
+                OnPropertyChanged(nameof(Fat));
+                OnPropertyChanged(nameof(Carbs));
+                OnPropertyChanged(nameof(Protein));
+                OnPropertyChanged(nameof(Salt));
+            }
+        }
 
         public AddIngredientViewModel(IFoodRepository repo)
         {
             _repo = repo;
-            foodItem = new FoodItem();
+            Food = new FoodItem();
+            Food.Name = "chicken";
         }
 
         public long Id { get; set; }
-
+        
         public string Name
         {
-            get { return foodItem.Name; }
+            get { return Food.Name; }
             set
             {
-                foodItem.Name = value;
+                Food.Name = value;
                 OnPropertyChanged();
             }
         }
 
         public ImperialServing ImperialServing
         {
-            get { return foodItem.ImperialServing; }
+            get { return Food.ImperialServing; }
             set
             {
-                if (Equals(value, foodItem.ImperialServing)) return;
-                foodItem.ImperialServing = value;
+                if (Equals(value, Food.ImperialServing)) return;
+                Food.ImperialServing = value;
                 OnPropertyChanged();
             }
         }
 
         public MetricServing MetricServing
         {
-            get { return foodItem.MetricServing; }
+            get { return Food.MetricServing; }
             set
             {
-                if (Equals(value, foodItem.MetricServing)) return;
-                foodItem.MetricServing = value;
+                if (Equals(value, Food.MetricServing)) return;
+                Food.MetricServing = value;
                 OnPropertyChanged();
             }
         }
 
         public Macronutrient FoodMacros
         {
-            get { return foodItem.FoodMacros; }
+            get { return Food.FoodMacros; }
             set
             {
-                if (Equals(value, foodItem.FoodMacros)) return;
-                foodItem.FoodMacros = value;
+                if (Equals(value, Food.FoodMacros)) return;
+                Food.FoodMacros = value;
                 OnPropertyChanged();
             }
+        }
+
+        public double Fat
+        {
+            get { return Food.FoodMacros.Fat; }
+            set
+            {
+                if (value.Equals(Food.FoodMacros.Fat)) return;
+                Food.FoodMacros.Fat = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public double Carbs
+        {
+            get { return Food.FoodMacros.Carbohydrate; }
+            set
+            {
+                Food.FoodMacros.Carbohydrate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public double Protein
+        {
+            get { return Food.FoodMacros.Protein; }
+            set
+            {
+                Food.FoodMacros.Protein = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int Salt
+        {
+            get { return Food.FoodMacros.Salt; }
+            set
+            {
+                Food.FoodMacros.Salt = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        public void SaveFoodItemToDb()
+        {
+            _repo.AddEntity(Food);
         }
 
 
