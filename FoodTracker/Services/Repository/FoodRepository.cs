@@ -55,4 +55,28 @@ namespace FoodTracker.Services.Repository
             return collection.Find(i => true).ToListAsync().Result;
         }
     }
+
+    public class SqlFoodRepository : IFoodRepository
+    {
+        public void AddEntity(FoodItem newEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FoodItem GetEntity(FoodItem entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<FoodItem> Find(Expression<Func<FoodItem, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<FoodItem> GetAllFoodItems()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 }

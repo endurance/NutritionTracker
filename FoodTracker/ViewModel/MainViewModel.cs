@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -32,11 +31,10 @@ namespace FoodTracker.ViewModel
                 Foods = new List<FoodItem>()
             };
             MainWindowFoodList = new ObservableCollection<FoodItem>(CurrentUser.Foods);
-            //UserFoodList = new ObservableCollection<FoodItem>(_repo.GetAllFoodItems());
             _differenceMacros = CurrentUser.GoalMacroNutrients.First().Clone() as Macronutrient;
         }
 
-        public User CurrentUser { get; }
+        public User CurrentUser { get; set; }
 
         public ObservableCollection<FoodItem> UserFoodList
         {
@@ -48,7 +46,7 @@ namespace FoodTracker.ViewModel
             }
         }
 
-        public ObservableCollection<FoodItem> MainWindowFoodList { get; }
+        public ObservableCollection<FoodItem> MainWindowFoodList { get; set;  }
 
         public double FatDifference
         {
@@ -114,7 +112,8 @@ namespace FoodTracker.ViewModel
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if(PropertyChanged != null)
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

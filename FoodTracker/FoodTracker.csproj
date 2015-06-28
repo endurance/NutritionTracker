@@ -102,6 +102,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\FoodSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -112,6 +116,9 @@
     </Compile>
     <Compile Include="View\AddIngredient.xaml.cs">
       <DependentUpon>AddIngredient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FoodSchedule.xaml.cs">
+      <DependentUpon>FoodSchedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

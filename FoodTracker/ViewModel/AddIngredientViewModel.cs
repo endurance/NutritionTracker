@@ -19,14 +19,14 @@ namespace FoodTracker.ViewModel
                 if (Equals(value, _food)) return;
                 _food = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(Name));
-                OnPropertyChanged(nameof(ImperialServing));
-                OnPropertyChanged(nameof(MetricServing));
-                OnPropertyChanged(nameof(FoodMacros));
-                OnPropertyChanged(nameof(Fat));
-                OnPropertyChanged(nameof(Carbs));
-                OnPropertyChanged(nameof(Protein));
-                OnPropertyChanged(nameof(Salt));
+                OnPropertyChanged("Name");
+                OnPropertyChanged("ImperialServing");
+                OnPropertyChanged("MetricServing");
+                OnPropertyChanged("FoodMacros");
+                OnPropertyChanged("Fat");
+                OnPropertyChanged("Carbs");
+                OnPropertyChanged("Protein");
+                OnPropertyChanged("Salt");
             }
         }
 
@@ -135,7 +135,8 @@ namespace FoodTracker.ViewModel
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (PropertyChanged != null)
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
