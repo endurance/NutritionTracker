@@ -1,34 +1,13 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using FoodTracker.Annotations;
+﻿using Caliburn.Micro;
 using FoodTracker.Model;
 using FoodTracker.Services.Repository;
 
 namespace FoodTracker.ViewModel
 {
-    public class AddIngredientViewModel : IViewModel
+    public class AddIngredientViewModel : PropertyChangedBase
     {
         private readonly IFoodRepository _repo;
         private FoodItem _food;
-
-        public FoodItem Food
-        {
-            get { return _food; }
-            set
-            {
-                if (Equals(value, _food)) return;
-                _food = value;
-                OnPropertyChanged();
-                OnPropertyChanged("Name");
-                OnPropertyChanged("ImperialServing");
-                OnPropertyChanged("MetricServing");
-                OnPropertyChanged("FoodMacros");
-                OnPropertyChanged("Fat");
-                OnPropertyChanged("Carbs");
-                OnPropertyChanged("Protein");
-                OnPropertyChanged("Salt");
-            }
-        }
 
         public AddIngredientViewModel(IFoodRepository repo)
         {
@@ -37,15 +16,35 @@ namespace FoodTracker.ViewModel
             Food.Name = "chicken";
         }
 
+        //public FoodItem Food
+        //{
+        //    get { return _food; }
+        //    set
+        //    {
+        //        if (Equals(value, _food)) return;
+        //        _food = value;
+        //        OnPropertyChanged();
+        //        OnPropertyChanged("Name");
+        //        OnPropertyChanged("ImperialServing");
+        //        OnPropertyChanged("MetricServing");
+        //        OnPropertyChanged("FoodMacros");
+        //        OnPropertyChanged("Fat");
+        //        OnPropertyChanged("Carbs");
+        //        OnPropertyChanged("Protein");
+        //        OnPropertyChanged("Salt");
+        //    }
+        //}
+
+        public FoodItem Food { get; set; }
         public long Id { get; set; }
-        
+
         public string Name
         {
             get { return Food.Name; }
             set
             {
                 Food.Name = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => Name);
             }
         }
 
@@ -56,7 +55,7 @@ namespace FoodTracker.ViewModel
             {
                 if (Equals(value, Food.ImperialServing)) return;
                 Food.ImperialServing = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => ImperialServing);
             }
         }
 
@@ -67,7 +66,7 @@ namespace FoodTracker.ViewModel
             {
                 if (Equals(value, Food.MetricServing)) return;
                 Food.MetricServing = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => MetricServing);
             }
         }
 
@@ -78,7 +77,7 @@ namespace FoodTracker.ViewModel
             {
                 if (Equals(value, Food.FoodMacros)) return;
                 Food.FoodMacros = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => FoodMacros);
             }
         }
 
@@ -89,7 +88,7 @@ namespace FoodTracker.ViewModel
             {
                 if (value.Equals(Food.FoodMacros.Fat)) return;
                 Food.FoodMacros.Fat = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => Fat);
             }
         }
 
@@ -99,7 +98,7 @@ namespace FoodTracker.ViewModel
             set
             {
                 Food.FoodMacros.Carbohydrate = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => Carbs);
             }
         }
 
@@ -109,7 +108,7 @@ namespace FoodTracker.ViewModel
             set
             {
                 Food.FoodMacros.Protein = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => Protein);
             }
         }
 
@@ -119,24 +118,13 @@ namespace FoodTracker.ViewModel
             set
             {
                 Food.FoodMacros.Salt = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => Salt);
             }
         }
-
 
         public void SaveFoodItemToDb()
         {
             _repo.AddEntity(Food);
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

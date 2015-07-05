@@ -104,7 +104,7 @@
             <GridSplitter/>
             <StackPanel Grid.Column="1">
                 <ListView Name="userFoodListView" 
-                          ItemsSource="{Binding UserFoodList, UpdateSourceTrigger=PropertyChanged}"
+                          ItemsSource="{Binding UserFoodList}"
                           dd:DragDrop.IsDragSource="True">
                     <ListView.View>
                         <GridView>

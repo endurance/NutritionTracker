@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using Caliburn.Micro;
 using FoodTracker.Annotations;
 using FoodTracker.Model;
 using FoodTracker.Services.Repository;
@@ -11,11 +12,11 @@ using GongSolutions.Wpf.DragDrop;
 
 namespace FoodTracker.ViewModel
 {
-    public class MainViewModel : IViewModel, IDropTarget
+    public class MainViewModel : PropertyChangedBase, IDropTarget
     {
         private readonly Macronutrient _differenceMacros;
         private readonly IFoodRepository _repo = new MongoFoodRepository();
-        private readonly ObservableCollection<FoodItem> repoFoodList = new ObservableCollection<FoodItem>();
+        private readonly ObservableCollection<FoodItem> _repoFoodList = new ObservableCollection<FoodItem>();
         public MainViewModel()
         {
             CurrentUser = new User()
@@ -40,9 +41,9 @@ namespace FoodTracker.ViewModel
         {
             get
             {
-                repoFoodList.Clear();
-                foreach (var i in _repo.GetAllFoodItems()) repoFoodList.Add(i);
-                return repoFoodList;
+                _repoFoodList.Clear();
+                foreach (var i in _repo.GetAllFoodItems()) _repoFoodList.Add(i);
+                return _repoFoodList;
             }
         }
 
@@ -54,7 +55,7 @@ namespace FoodTracker.ViewModel
             set
             {
                 _differenceMacros.Fat = value;
-                OnPropertyChanged("FatDifference");
+                NotifyOfPropertyChange(() => FatDifference);
             }
         }
 
@@ -64,7 +65,7 @@ namespace FoodTracker.ViewModel
             set
             {
                 _differenceMacros.Carbohydrate = value;
-                OnPropertyChanged("CarbDifference");
+                NotifyOfPropertyChange(() => CarbDifference);
             }
         }
 
@@ -74,7 +75,7 @@ namespace FoodTracker.ViewModel
             set
             {
                 _differenceMacros.Protein = value;
-                OnPropertyChanged("ProteinDifference");
+                NotifyOfPropertyChange(() => ProteinDifference);
             }
         }
 
@@ -84,7 +85,7 @@ namespace FoodTracker.ViewModel
             set
             {
                 _differenceMacros.Salt = value;
-                OnPropertyChanged("SaltDifference");
+                NotifyOfPropertyChange(() => SaltDifference);
             }
         }
 
@@ -104,16 +105,6 @@ namespace FoodTracker.ViewModel
             CarbDifference = _differenceMacros.Carbohydrate - sourceItem.FoodMacros.Carbohydrate;
             ProteinDifference = _differenceMacros.Protein - sourceItem.FoodMacros.Protein;
             SaltDifference = _differenceMacros.Salt - sourceItem.FoodMacros.Salt;
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            if(PropertyChanged != null)
-                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

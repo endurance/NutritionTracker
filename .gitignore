@@ -5,3 +5,9 @@ Test/obj/
 *.suo
 Test/bin/
 FoodTracker/FoodTracker.csproj.DotSettings
+UnitTests/obj/
+UnitTests/bin/
+FoodTrackerMVC/bin/
+FoodTrackerMVC/obj/
+CoreModels/bin/
+CoreModels/obj/

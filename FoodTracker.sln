@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodTracker", "FoodTracker\FoodTracker.csproj", "{F4EB3EDA-6E51-44D1-ACB3-9CA638DE0F17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodTrackerWPF", "FoodTracker\FoodTrackerWPF.csproj", "{F4EB3EDA-6E51-44D1-ACB3-9CA638DE0F17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{2178F8C4-B91A-43D5-80D6-6F2315E1585D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "CoreModels\Core.csproj", "{70E18222-4340-4256-BBC4-874CD2B0CFD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{08831E25-DEEC-4156-92E8-38D7ECF91070}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodTrackerMVC", "FoodTrackerMVC\FoodTrackerMVC.csproj", "{E19189B3-2E78-4BC3-8118-48E37C74AB3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodTrackerMVC.Tests", "FoodTrackerMVC.Tests\FoodTrackerMVC.Tests.csproj", "{220AFAF5-514A-4F63-A11E-0FE4EDF22A0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +23,22 @@ Global
 		{F4EB3EDA-6E51-44D1-ACB3-9CA638DE0F17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4EB3EDA-6E51-44D1-ACB3-9CA638DE0F17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4EB3EDA-6E51-44D1-ACB3-9CA638DE0F17}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2178F8C4-B91A-43D5-80D6-6F2315E1585D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2178F8C4-B91A-43D5-80D6-6F2315E1585D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2178F8C4-B91A-43D5-80D6-6F2315E1585D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2178F8C4-B91A-43D5-80D6-6F2315E1585D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70E18222-4340-4256-BBC4-874CD2B0CFD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70E18222-4340-4256-BBC4-874CD2B0CFD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70E18222-4340-4256-BBC4-874CD2B0CFD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70E18222-4340-4256-BBC4-874CD2B0CFD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08831E25-DEEC-4156-92E8-38D7ECF91070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08831E25-DEEC-4156-92E8-38D7ECF91070}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08831E25-DEEC-4156-92E8-38D7ECF91070}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08831E25-DEEC-4156-92E8-38D7ECF91070}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E19189B3-2E78-4BC3-8118-48E37C74AB3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E19189B3-2E78-4BC3-8118-48E37C74AB3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E19189B3-2E78-4BC3-8118-48E37C74AB3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E19189B3-2E78-4BC3-8118-48E37C74AB3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{220AFAF5-514A-4F63-A11E-0FE4EDF22A0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{220AFAF5-514A-4F63-A11E-0FE4EDF22A0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{220AFAF5-514A-4F63-A11E-0FE4EDF22A0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{220AFAF5-514A-4F63-A11E-0FE4EDF22A0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
